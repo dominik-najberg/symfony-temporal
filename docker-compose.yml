@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   app:
@@ -8,8 +8,8 @@ services:
         uid: 1000
       context: ./docker/app
       dockerfile: Dockerfile
-    image: symfony-api-app
-    container_name: symfony-api-app
+    image: symfony-temporal-app
+    container_name: symfony-temporal-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
@@ -20,7 +20,7 @@ services:
 
   database:
     image: mysql:5.7
-    container_name: symfony-api-db
+    container_name: symfony-temporal-db
     restart: unless-stopped
     ports:
       - 3336:3306
@@ -38,7 +38,7 @@ services:
 
   webserver:
     image: nginx:alpine
-    container_name: symfony-api-nginx
+    container_name: symfony-temporal-nginx
     restart: unless-stopped
     ports:
       - 8000:80
@@ -47,6 +47,28 @@ services:
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
       - internal
+
+  temporal:
+    image: temporalio/auto-setup:1.13.0
+    ports:
+      - "7233:7233"
+    environment:
+      - DB=postgresql
+      - DB_HOST=db-temporal
+      - DB_PORT=5432
+      - DB_USER=temporal
+      - DB_PASSWORD=temporal
+
+  db-temporal:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=temporal
+      - POSTGRES_PASSWORD=temporal
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
 
 networks:
   internal:
