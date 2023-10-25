@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd" backupGlobals="false" colors="true"
+         bootstrap="tests/bootstrap.php" cacheDirectory=".phpunit.cache">
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <server name="APP_ENV" value="test" force="true"/>
+    <server name="SHELL_VERBOSITY" value="-1"/>
+    <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
+    <server name="SYMFONY_PHPUNIT_VERSION" value="10.4"/>
+    <env name="KERNEL_CLASS" value="App\Kernel"/>
+
+    <!-- ###+ doctrine/doctrine-bundle ### -->
+    <!-- Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url -->
+    <!-- IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml -->
+    <!--  -->
+    <!-- DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db" -->
+    <!-- ###- doctrine/doctrine-bundle ### -->
+  </php>
+
+  <testsuites>
+    <testsuite name="Project Test Suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <coverage/>
+
+  <source>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <exclude>
+      <file>src/Kernel.php</file>
+    </exclude>
+  </source>
+
+</phpunit>

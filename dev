@@ -1,0 +1,17 @@
+#!/bin/bash
+
+function up() {
+  docker-compose up -d
+}
+
+function init() {
+  docker-compose run app bin/console doctrine:schema:drop -f
+  docker-compose run app bin/console doctrine:schema:create
+  docker-compose run app bin/phpunit
+}
+
+case $1 in
+"init") init ;;
+"up") up ;;
+*) docker-compose run app $1 $2 "$3" ;;
+esac
