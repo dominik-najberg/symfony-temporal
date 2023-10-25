@@ -2,9 +2,9 @@
 
 It's a simple example of Temporal in Practice. Mind you, it's a WIP.
 
-All suggestions and discussion welcome.
+## TODO:
+* tests
+* docker-compose
 
-```bash
-./dev up
-./dev init
-```
+
+`All suggestions and discussion welcome.`
