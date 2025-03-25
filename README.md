@@ -1,6 +1,6 @@
 # symfony-temporal
 
-It's a simple example of Temporal in Practice. Mind you, it's a WIP.
+It's a simple example of Temporal in Practice. Mind you, there are some simplifications for presentations purposes.
 
 ## TODO:
 * tests
